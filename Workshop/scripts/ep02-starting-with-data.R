@@ -26,8 +26,9 @@ surveys <- read_csv("data_raw/portal_data_joined.csv")
 
 
 # and take a look at it
-
-
+view(surveys)
+head(surveys)
+tail(surveys)
 
 # BTW, we assumed our data was comma separated, however this might not
 # always be the case. So we may been to tell read.csv more about our file.
@@ -50,6 +51,7 @@ surveys <- read_csv("data_raw/portal_data_joined.csv")
 #
 # Answer:
 
+str(surveys)
 
 # How many rows and how many columns are in this survey ?
 #
@@ -58,7 +60,8 @@ surveys <- read_csv("data_raw/portal_data_joined.csv")
 
 # Bonus functions 
 
-
+names(surveys)
+summary(surveys)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Topic: Sub-setting
@@ -66,24 +69,31 @@ surveys <- read_csv("data_raw/portal_data_joined.csv")
 
 # first element in the first column of the data frame (as a vector)
 
+surveys[1,1]
 
 # first element in the 6th column (as a vector)
 
+surveys[1, 6]
 
 # first column of the data frame (as a vector)
 
+surveys[, 1]
 
 # first column of the data frame (as a data frame)
 
+surveys$record_id
 
 # first row (as a data frame)
 
+surveys[1, ]
 
 # first three elements in the 7th column (as a vector)
 
+surveys[1:3, 7]
 
 # the 3rd row of the data frame (as a data.frame)
 
+surveys[3, ]
 
 # equivalent to head(metadata)
 
@@ -93,8 +103,12 @@ surveys <- read_csv("data_raw/portal_data_joined.csv")
 
 # we also use other objects to specify the range
 
+surveys[c(2, 4, 6), ]
+
 
 # We can omit (leave out) columns using '-'
+
+surveys[-c(2, 4, 6), ]
 
 # --------------------
 # Exercise/Challenge
@@ -107,11 +121,15 @@ surveys <- read_csv("data_raw/portal_data_joined.csv")
 #
 # Solution:
 
+surveys[1:6, ]
+surveys[-(7:nrow(surveys)), ]
 
 
 # column "names" can be used in place of the column numbers and $ operator to isolate
 
-
+surveys["month"]
+surveys[c("month", "year")]
+surveys$species_id
 
 # --------------------
 # Exercise/Challenge
@@ -121,6 +139,9 @@ surveys <- read_csv("data_raw/portal_data_joined.csv")
 
 # What's the average weight of survey animals
 #
+
+mean(surveys$weight, na.rm = TRUE)
+
 #
 # Answer:
 
@@ -129,19 +150,29 @@ surveys <- read_csv("data_raw/portal_data_joined.csv")
 #
 # Answer:
 
+table(surveys$taxa)
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Topic: Factors (for categorical data)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+summary(surveys$sex)
 
 #Turning characters into levels
 
+surveys$sex <- factor(surveys$sex)
+summary(surveys$sex)
 
 # factors that have an order
 
+temperature <- factor(c("hot", "cold", "hot", "warm"))
+temperature
+levels(temperature)
 
+temperature <- factor(temperature, levels = c("cold", "warm", "hot"))
+levels(temperature)
+nlevels(temperature)
 
 # --------------------
 # Exercise/Challenge
@@ -151,9 +182,20 @@ surveys <- read_csv("data_raw/portal_data_joined.csv")
 #        a. How many rabbits were observed?
 #        b. How many different genera are in the genus column?
 
+surveys$genus <- factor(surveys$genus)
+surveys$taxa <- factor(surveys$taxa)
+
+summary(surveys$taxa)
+nlevels(surveys$genus)
+
 
 # Converting factors
 
+
+surveys$year <- factor(surveys$year)
+levels(surveys$year)
+as.numeric(as.character(surveys$year))
+nlevels(surveys$year)
 
 # can be tricky if the levels are numbers
 
