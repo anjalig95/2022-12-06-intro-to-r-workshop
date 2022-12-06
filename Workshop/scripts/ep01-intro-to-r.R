@@ -350,7 +350,12 @@ weight_g[weight_g > 50]
 # and we can get more fancy with comparisons 
 #
 #  weight_g < 30 | weight_g > 50
+
+weight_g[weight_g < 30 | weight_g > 50]
+
 #  weight_g >= 30 & weight_g == 21
+
+weight_g[weight_g >= 30 & weight_g == 21]
 
 # another example with animals
 #
