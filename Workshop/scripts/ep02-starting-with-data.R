@@ -33,11 +33,11 @@ tail(surveys)
 # BTW, we assumed our data was comma separated, however this might not
 # always be the case. So we may been to tell read.csv more about our file.
 
-
+?read.csv
 
 # So what kind of an R object is "surveys" ?
 
-
+class(s)
 
 # ok - so what are dataframes ?
 
