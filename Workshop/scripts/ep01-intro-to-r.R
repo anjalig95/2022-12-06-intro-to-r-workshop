@@ -26,13 +26,16 @@
 
 # What does: 11 + 1 / 6  evaluate to ?
 
+11 + 1 / 6
 
-# Solution:
+# Solution: 11.16667
 
 
 # Calculate 10 plus 2 all divided by 3 and then squared
 
-# Solution:
+((10 + 2)/3) ^ 2
+
+# Solution: 16
 
 
 # Storing values
@@ -49,6 +52,11 @@ a + b               # we can add them together just like numbers
 # --------
 #
 # What happens if we change a and then re-add a and b? [Hint: Try it now]
+
+a <- 8
+
+a + b
+
 #
 # Does it work if you just change a in the script and then add a and b? [Hint: Try it]
 #
@@ -57,8 +65,12 @@ a + b               # we can add them together just like numbers
 #
 # We can also assign the result of a + b to a new variable, c. 
 # How would you do this?
+
+c <- a + b
+
+c
 #
-# Solution:
+# Solution: 13
 
 
 
@@ -87,21 +99,27 @@ ekljre2jklwef023ijlefj93jkl23rj90f32k <- 1
 #
 # Solution: [Hint:       <- "Introduction to R"]
 
+Workshop_name <- "Introduction to R"
+
+
 # Assign the name of video conferencing tool to an object
 #
 # Solution: [Hint:      <- "Zoom"]
 
+video_tool <- "Zoom"
 
 # Which of these are valid object names: [Hint: Try them out]
 #
 #  min_height
 #  max.height
-#  _age
-#  .mass
+#  _age     INVALID
+#  .mass    
 #  MaxLength
-#  min-length
-#  2widths
+#  min-length INVALID
+#  2widths    INVALID
 #  celsius2kelvin
+
+.mass <- 2
 
 
 #
@@ -162,20 +180,20 @@ m = cms / 100
 # Square Root:  sqrt()
 #
 
-# arguments can be constants of objecs
+# arguments can be constants of objects
 
 # Absolute Value: abs()
 # 
 # Decimal rounding: round(3.14159)
 
 
-# Built-in constants: eg, pi
+# Built-in constants: eg: pi
 
 # Getting help about particular functions 
 #
 # Question Mark followed by function name, eg: ?round
 
-# or if we just want to know bount the arguments, use: args()
+# or if we just want to know about the arguments, use: args()
 
 # Argument have default order - but can re-ordered using names
 #
@@ -188,6 +206,8 @@ m = cms / 100
 # what does the function called log10() do ?  Can you test it ?
 #
 # Answer:
+
+log10(pi)
 
 
 
@@ -202,16 +222,28 @@ m = cms / 100
 #
 #  4.6, 3000, 50000
 
+glengths <- c(4.6, 3000, 50000)
+
 # and repeat to create a vector of species
 #
 #  "ecoli", "human", "corn"
 
+species <- c("ecoli", "human", "corn")
+
 # use length() to obtain how many elements a vector contains
+
+length(glengths)
+length(species)
 
 # we can also ask what structure of our vectors look like with str()
 
+str(glengths)
+str(species)
+
 # and also see what class they are with class()
 
+class(glengths)
+class(species)
 
 # and btw, there are other classes as well ...
 #
@@ -227,12 +259,16 @@ m = cms / 100
 # multiply glengths by 5
 # add glength to itsself
 
+glengths * 5
+glengths + glengths
+
 # appending and prepending elememts to a vector
 #
 # c(vector, value)
 # c(value, vector)
 #
 
+c(-500, glengths, 180000)
 
 
 # note all the elements of a vector must be the same type
@@ -288,8 +324,10 @@ length_species
 animals <- c("mouse", "rat", "dog", "cat")
 
 # reference (access) the second element using [] 
+animals[2]
 
 # access the subset consisting of element 3 and element 2
+animals[c(2, 4)]
 
 # we can reference each element more than once
 #
@@ -305,6 +343,7 @@ animals <- c("mouse", "rat", "dog", "cat")
 # using comparison operators to generate a 'logical' vector 
 #
 # vector of which weight are greater then 50
+weight_g[weight_g > 50]
 
 # ... and the use this to subset the data vector
 
