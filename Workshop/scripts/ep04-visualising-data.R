@@ -18,19 +18,28 @@ surveys_complete <- read_csv("data_out/surveys_complete.csv")
 
 # empty plot
 
+ggplot(data = surveys_complete)
+  
 
 # empty plot with axes
 
+ggplot(surveys_complete, aes(weight, hindfoot_length)) 
 
 # data appears on the plot
 
+ggplot(surveys_complete, aes(weight, hindfoot_length)) +
+  geom_point()
 
 
 # assign a plot to an object
 
+splot <- ggplot(surveys_complete, aes(weight, hindfoot_length)) 
+splot
 
 # display the ggplot object (plus add an extra geom layer)
 
+splot +  
+  geom_point()
 
 
 
@@ -40,8 +49,16 @@ surveys_complete <- read_csv("data_out/surveys_complete.csv")
 # Change the mappings so weight is on the y-axis and hindfoot_length is on the x-axis
 
 
+ggplot(surveys_complete, aes(hindfoot_length, weight)) +
+  geom_point()
 
+ggplot(surveys_complete, aes(weight)) +
+  geom_histogram(binwidth = 10)
 
+install.packages("hexbin")  # gives a count of the data points in addition to the actual plot
+library(hexbin)
+
+splot + geom_hex()
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -50,7 +67,11 @@ surveys_complete <- read_csv("data_out/surveys_complete.csv")
 # 
 
 
+splot +
+  geom_point(alpha = 0.2, size = 2, colour = 123)
 
+splot +
+  geom_point(alpha = 0.2, aes(colour = species_id))
 
 
 
@@ -62,11 +83,17 @@ surveys_complete <- read_csv("data_out/surveys_complete.csv")
 # with the plot type showing in different colours. 
 # Is this a good way to show this type of data?
 
+ggplot(surveys_complete, aes(species_id, weight)) +
+  geom_point(aes(colour = plot_id))
 
-
+ggplot(surveys_complete, aes(species_id, weight)) +
+  geom_jitter(position = "jitter", aes(colour = plot_id))
 
 
 #not a great way to display this data...
+
+
+
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -85,6 +112,13 @@ surveys_complete <- read_csv("data_out/surveys_complete.csv")
 
 # Notice how the boxplot layer is behind the jitter layer? What do you need to change in the code to put the boxplot in front of the points such that it's not hidden?
 
+ggplot(surveys_complete, aes(species_id, weight)) +
+  geom_boxplot()
+
+ggplot(surveys_complete, aes(species_id, weight)) +
+  geom_jitter(alpha = 0.3, position = "jitter", colour = "tomato") +
+  geom_boxplot(alpha = 0)
+
 
 
 # ------------------------
@@ -99,6 +133,9 @@ surveys_complete <- read_csv("data_out/surveys_complete.csv")
 # 
 #Replace the box plot with a violin plot
 
+ggplot(surveys_complete, aes(species_id, weight)) +
+  geom_jitter(alpha = 0.3, position = "jitter", colour = "tomato") +
+  geom_violin(alpha = 0)
 
 
 
@@ -116,12 +153,21 @@ surveys_complete <- read_csv("data_out/surveys_complete.csv")
 
 # with a color scale
 
+surveys_complete$plot_id <- as.factor(surveys_complete$plot_id)
+
+ggplot(surveys_complete, aes(species, hindfoot_length)) +
+  geom_jitter(alpha = 0.3, position = "jitter", aes(colour = plot_id)) +
+  geom_boxplot(alpha = 0)
+
 
 #now run again, and there are discrete colors:
 
 
 # alternately, we can change the class of plot_id on the fly (without changing data object)
 
+ggplot(surveys_complete, aes(species, hindfoot_length)) +
+  geom_jitter(alpha = 0.3, position = "jitter", aes(colour = as.factor(plot_id))) +
+  geom_boxplot(alpha = 0)
 
 
 
@@ -137,6 +183,10 @@ surveys_complete <- read_csv("data_out/surveys_complete.csv")
 # Make a scatter plot of species_id on the x-axis and weight on the y-axis with 
 # a log10 scale.
 
+ggplot(surveys_complete, aes(species, weight)) +
+  geom_jitter(alpha = 0.3, position = "jitter", aes(colour = as.factor(plot_id))) +
+  geom_boxplot(alpha = 0) +
+  scale_y_log10()
 
 
 
