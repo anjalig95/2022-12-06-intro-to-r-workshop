@@ -188,15 +188,19 @@ s6 <- s %>%
   filter(hindfoot_cm < 3, na.rm = TRUE)
 s6
 
+
 #
 # group_by() - collect like things together to allow us to summarise them
 #
-surveys %>%
+s %>%
   group_by(sex) %>%
   summarize(mean_weight = mean(weight, na.rm = TRUE))
 
 # we can include multiple group_by variables, eg species_id
 
+s %>%
+  group_by(sex, taxa) %>%
+  summarize(mean_weight = mean(weight, na.rm = TRUE))
 
 #
 # count() - how many observerations for each (or combinations of) variables(s)
@@ -277,8 +281,14 @@ cars_wide <- data.frame (
 
 # tidyr's pivot_longer() can do this for us
 
+cars_long <- cars_wide %>%
+  pivot_longer(names_to = "Make of car", values_to = "Quantity of car", cols = -day)
+
 # and the reverse 
 
+cars_long %>%
+  pivot_wider(names_from = "Make of car", values_from = "Quantity of car")
+  
 
 # now we can apply to our surveys data
 surveys_long <- surveys %>%
