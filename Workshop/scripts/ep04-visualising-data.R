@@ -318,7 +318,17 @@ ggplot(yearly_weight, aes(year, mean_weight)) +
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Makinging it your own
 
+year_sex <- surveys_complete %>%
+  count(year, sex, genus)
 
+my_plot <- ggplot(year_sex, aes(year, n, colour = sex)) +
+  geom_line(size = 1) +
+  facet_wrap(~ genus) +
+  labs(title = "Observed genera through time", 
+       x = "Year of observations", 
+       y = "Number of individuals") +
+  theme_classic() +
+  theme(text = element_text(size = 16))
 
 # save theme configuration as an object
 
@@ -327,3 +337,6 @@ ggplot(yearly_weight, aes(year, mean_weight)) +
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Topic: Exporting plots
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ggsave("figures/my_plot.pdf", my_plot, width = 15, height = 10)
+
