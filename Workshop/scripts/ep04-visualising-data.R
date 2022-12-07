@@ -197,20 +197,33 @@ ggplot(surveys_complete, aes(species, weight)) +
 
 # counts per year for each genus
 
+year_counts <- surveys_complete %>%
+  count(year, genus)
+
+ggplot(year_counts, aes(year, n, group = genus)) +
+  geom_line()
+  
 
 # ------------------------
 # Exercise/Challenge 7
 # ------------------------
 # Modify the code for the yearly counts to colour by genus so we can clearly see the counts by genus. 
 
-
+ggplot(year_counts, aes(year, n, colour = genus)) +
+  geom_line()
 
 
 
 # OR alternately
 # integrating the pipe operator with ggplot (no need to make a separate dataframe)
 
-
+surveys_complete %>%
+  count(year, genus) %>%
+  ggplot(aes(year, n, colour = genus)) +
+  geom_line() +
+  labs(title = "Counts of each genus over time",
+         x = "Year",
+         y = "Number of observations")
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Topic: Faceting
