@@ -299,6 +299,19 @@ ggplot(year_sex, aes(year, n, colour = sex)) +
 # weight of each species changes through the years.
 # Hint: need to do a group_by() and summarize() to get the data before plotting
 
+yearly_weight <- surveys_complete %>%
+  group_by(species, year) %>%
+  summarize(mean_weight = mean(weight))
+
+ggplot(yearly_weight, aes(year, mean_weight, colour = species)) +
+  geom_line() +
+  theme_bw()
+
+ggplot(yearly_weight, aes(year, mean_weight)) +
+  geom_line() +
+  facet_wrap(~ species) +
+  theme_bw()
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Topic: Customisation
