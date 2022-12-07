@@ -231,29 +231,66 @@ surveys_complete %>%
 #
 # Split one plot into Multiple plots
 
+ggplot(year_counts, aes(year, n, colour = genus)) +
+  geom_line() +
+  facet_wrap(~ genus)
+
+ggplot(year_counts, aes(year, n, colour = genus)) +
+  geom_line() +
+  facet_wrap(facets = var(genus))
 
 
 
 # organise rows and cols to show sex and genus
 
+year_sex <- surveys_complete %>%
+  count(year, sex, genus)
 
+ggplot(year_sex, aes(year, n, colour = sex)) +
+  geom_line() +
+  facet_wrap(~ genus)
+
+surveys_complete %>%
+  count(year, sex, genus) %>%
+  ggplot(year_sex, aes(year, n, colour = sex)) +
+  geom_line() +
+  facet_wrap(~ genus)
+  
 
 # organise rows by genus only
+ 
+ggplot(year_sex, aes(year, n, colour = sex)) +
+  geom_line() +
+  facet_grid(row = vars(sex), col = vars(genus))
 
-
+ggplot(year_sex, aes(year, n, colour = sex)) +
+  geom_line() +
+  facet_grid(row = vars(genus))
+  
 # ------------------------
 # Exercise/Challenge 8
 # ------------------------
 # How would you modify this code so the faceting is organised into only columns 
 # instead of only rows?
 
+ggplot(year_sex, aes(year, n, colour = sex)) +
+  geom_line() +
+  facet_grid(col = vars(genus))
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Topic: Themes
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # themes set a look
 
+ggplot(year_sex, aes(year, n, colour = sex)) +
+  geom_line() +
+  facet_wrap(~ genus) +
+  theme_bw()
 
+ggplot(year_sex, aes(year, n, colour = sex)) +
+  geom_line() +
+  facet_wrap(~ genus) +
+  theme_linedraw()
 
 # ------------------------
 # Exercise/Challenge 9
